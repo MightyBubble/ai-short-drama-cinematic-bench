@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI短剧关键剧照浏览</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111315;
+      --surface: #191c1f;
+      --surface-2: #202428;
+      --line: #343a40;
+      --text: #f0f1ed;
+      --muted: #a5aaa6;
+      --accent: #d6a86a;
+      --accent-2: #7ca6a0;
+      --danger: #bf7469;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 10px;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 22px 0 16px;
+      scrollbar-width: thin;
+    }
+
+    .tab {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: transparent;
+      padding: 10px 14px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .tab:hover,
+    .tab:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .tab[aria-selected="true"] {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #17130e;
+    }
+
+    .tab strong,
+    .tab small {
+      display: block;
+    }
+
+    .tab strong { font-weight: 500; }
+    .tab small { margin-top: 3px; opacity: .72; font-size: 12px; }
+
+    .film-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
+      gap: 28px;
+      align-items: end;
+      padding: 12px 0 26px;
+    }
+
+    .film-meta h2 {
+      margin-bottom: 8px;
+      font-size: clamp(25px, 4vw, 42px);
+      line-height: 1.1;
+      font-weight: 500;
+    }
+
+    .film-meta p {
+      max-width: 800px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .tone {
+      border-left: 2px solid var(--accent-2);
+      padding-left: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tone strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cast {
+      display: grid;
+      grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .cast-image,
+    .frame-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: var(--surface-2);
+    }
+
+    .cast-image {
+      aspect-ratio: 2 / 3;
+    }
+
+    .cast-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      min-height: 260px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 0;
+    }
+
+    .cast-copy h3 {
+      margin-bottom: 10px;
+      font-size: 23px;
+      font-weight: 500;
+    }
+
+    .cast-copy p {
+      max-width: 700px;
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+
+    .cast-copy .label {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .frames-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .frames-heading h3 {
+      margin-bottom: 0;
+      font-size: 21px;
+      font-weight: 500;
+    }
+
+    .frames-heading span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .frame-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .frame {
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+      padding: 0;
+    }
+
+    .frame:hover,
+    .frame:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .frame[aria-current="true"] {
+      border-color: var(--accent);
+    }
+
+    .frame-image {
+      aspect-ratio: 3 / 2;
+    }
+
+    .frame-copy {
+      padding: 12px 13px 14px;
+    }
+
+    .frame-index {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    .frame-title {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .frame-note {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .viewer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+      gap: 22px;
+      align-items: start;
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    .viewer-figure {
+      margin: 0;
+      background: #0b0d0e;
+    }
+
+    .viewer-image {
+      display: block;
+      width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+    }
+
+    .viewer-copy {
+      padding-top: 4px;
+    }
+
+    .viewer-copy .kicker {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .viewer-copy h3 {
+      margin-bottom: 10px;
+      font-size: 27px;
+      line-height: 1.15;
+      font-weight: 500;
+    }
+
+    .viewer-copy p {
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .viewer-copy .source {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .frame-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .viewer { grid-template-columns: 1fr; }
+      .viewer-copy { padding-top: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 24px, 620px); padding-top: 22px; }
+      .masthead,
+      .film-meta { display: block; }
+      .count { margin-top: 14px; text-align: left; }
+      .tone { margin-top: 18px; }
+      .cast { grid-template-columns: 1fr; }
+      .cast-image { max-height: 520px; }
+      .cast-copy { min-height: 0; }
+      .frame-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main id="cinematic-stills-app" class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">AI Short Drama / Key Stills</p>
+        <h1>四部剧，四种逃生方式</h1>
+        <p class="intro">按“选角定妆照 → 关键转折 → 结尾选择”浏览，不是草图分镜，而是按成片质感设计的剧照提案。</p>
+      </div>
+      <div class="count">4 部剧本<br>每部 1 张选角照 + 4 张关键帧</div>
+    </header>
+
+    <nav id="film-tabs" class="tabs" aria-label="剧本选择"></nav>
+    <section id="film-content" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const app = document.getElementById("cinematic-stills-app");
+    const tabs = document.getElementById("film-tabs");
+    const content = document.getElementById("film-content");
+
+    const films = [
+      {
+        id: "signal-blind-zone",
+        title: "《信号盲区》",
+        model: "DeepSeek v4 Flash",
+        logline: "一个把声音做成武器的程序员，被自己的工具扔进战区，最后必须用真名穿过身份核验。",
+        tone: "冷白机房 → 灼热战区 → 灰蓝自首。技术不是救赎，承担后果才是。",
+        cast: {
+          image: "cinematic-stills/signal-blind-zone-cast.png",
+          title: "陈默｜29 岁｜诈骗集团语音工具作者",
+          note: "冷静、怕死、嘴硬。前半程躲在工具后面，后半程第一次站到自己的声音里。"
+        },
+        frames: [
+          { image: "cinematic-stills/signal-blind-zone/01-call-center.png", title: "机房里的第一声", note: "他听见自己做出的声音骗走一位老人的积蓄，却把新闻像广告一样关掉。", source: "第 1 集《出境》" },
+          { image: "cinematic-stills/signal-blind-zone/02-warehouse-escape.png", title: "仓库起火", note: "阿米娜拖他离开正在交火的窝点，他带走电脑和卫星终端，却带不走旧身份。", source: "第 1 集《出境》" },
+          { image: "cinematic-stills/signal-blind-zone/03-identity-corridor.png", title: "桥上的身份核验", note: "旧护照被标记，走廊就在眼前，他第一次面对“不能再编一个身份”的选择。", source: "第 7 集《渡河》" },
+          { image: "cinematic-stills/signal-blind-zone/04-real-voice.png", title: "只用自己的声音", note: "他给母亲打电话，承认要回去还债，也承认自己不再想靠假声音活下去。", source: "第 8 集《本名》" }
+        ]
+      },
+      {
+        id: "signal-lost",
+        title: "《信号丢失》",
+        model: "Opus 4.6",
+        logline: "一个携款潜逃的中国程序员在非洲内战中失去所有信号，只能用修复通信设备换取一条活路。",
+        tone: "红土、热浪、湿布、低带宽。人物始终被现实推着走，技术只够多争几分钟。",
+        cast: {
+          image: "cinematic-stills/signal-lost-cast.png",
+          title: "陈远舟｜32 岁｜伪造语音与自动化社工开发者",
+          note: "聪明但不会判断人。片子把他的成长放在“第一次替别人算时间”上，而不是突然变成好人。"
+        },
+        frames: [
+          { image: "cinematic-stills/signal-lost/01-crash-road.png", title: "翻车之后", note: "他从翻倒的越野车里爬出来，先摸卫星电话和水，再决定要不要继续往枪声相反的方向走。", source: "第 1 集《降落》" },
+          { image: "cinematic-stills/signal-lost/02-field-clinic.png", title: "诊所里的第一次停留", note: "本来只想修设备换通行，他却被迫坐下来，让一个不信任他的护士处理伤口。", source: "第 2 集《交易》" },
+          { image: "cinematic-stills/signal-lost/03-voice-command.png", title: "把声音交给战争", note: "指挥官要他制造一条假命令，他知道这次不是骗钱，而是可能让一整支队伍走向死亡。", source: "第 5 集《声音》" },
+          { image: "cinematic-stills/signal-lost/04-river-crossing.png", title: "带人过河", note: "他不再只计算自己能不能活，而是开始用无线电为老人、孩子和伤员计算窗口。", source: "第 7 集《穿越》" }
+        ]
+      },
+      {
+        id: "counterfeit-voice",
+        title: "《赝声》",
+        model: "Opus 4.8",
+        logline: "一个偷走别人声音的人，在矿区战火和疾病之间，必须决定这套技术究竟要继续替谁说话。",
+        tone: "湿热、深绿、锈红。机器总在出错，人比机器更难识别。",
+        cast: {
+          image: "cinematic-stills/counterfeit-voice-cast.png",
+          title: "林越｜32 岁｜诈骗窝点语音系统开发者",
+          note: "他最初相信“我只做工具”，最后必须亲自站到灯光下，认领工具留下的后果。"
+        },
+        frames: [
+          { image: "cinematic-stills/counterfeit-voice/01-data-center.png", title: "不看的通知", note: "机房里有人继续把声音变成骗局，他把一条坠楼消息关掉，像关掉一只广告。", source: "第 1 集《干净的声音》" },
+          { image: "cinematic-stills/counterfeit-voice/02-translation-mistake.png", title: "译错的一句", note: "翻译软件把求生翻成挑衅，机器的错误让他第一次被迫直接面对陌生人的判断。", source: "第 2 集《译错的一句》" },
+          { image: "cinematic-stills/counterfeit-voice/03-clinic-child.png", title: "给孩子补液", note: "他第一次主动提出用自己的技术救人，而不是换钱、换身份或换一条逃跑路线。", source: "第 4 集《谁在说话》" },
+          { image: "cinematic-stills/counterfeit-voice/04-true-voice.png", title: "站进灯光里", note: "边境调度室里，他拿着证据承认：假声音是自己做的，罪也有自己的一份。", source: "第 8 集《真声》" }
+        ]
+      },
+      {
+        id: "echo-tower",
+        title: "《回声塔》",
+        model: "Opus 5",
+        logline: "一个带着假身份进入河岸战区的程序员，被三百多名等待过境的人逼着回答：你到底要把谁送到安全地带。",
+        tone: "灰天、红土、旧设备、长时间沉默。最接近 PKD 的不是幻觉，而是身份被文件替代。",
+        cast: {
+          image: "cinematic-stills/echo-tower-cast.png",
+          title: "陈默｜34 岁｜把自己藏在“技术顾问”名下的人",
+          note: "没有英雄体格，也没有漂亮的赎罪动作。他只是逐渐停止把每个人都当成变量。"
+        },
+        frames: [
+          { image: "cinematic-stills/echo-tower/01-bus-road.png", title: "车还没到矿区", note: "一车人听见远处炮声，所有人都安静下来；他第一次意识到自己坐错了车。", source: "第 1 集《样本》" },
+          { image: "cinematic-stills/echo-tower/02-drone-repair.png", title: "修好一台小无人机", note: "一个少年把他当老师，村民却在讨论要不要走登记路线，技术第一次嵌进真实的人群。", source: "第 4 集《雅巴的三天》" },
+          { image: "cinematic-stills/echo-tower/03-third-truck.png", title: "第三辆卡车", note: "路障只要他一个人。车后还有五十一人和十九个孩子，他必须决定谁承担风险。", source: "第 7 集《第三辆卡车》" },
+          { image: "cinematic-stills/echo-tower/04-confession-room.png", title: "旅馆里的自白", note: "逃到边境小镇后，他第一次不用代码写东西，而是用自己的字写下自己的名字。", source: "第 8 集《回声》" }
+        ]
+      }
+    ];
+
+    let activeFilm = films[0];
+    let activeFrame = activeFilm.frames[0];
+
+    function renderTabs() {
+      tabs.innerHTML = films.map((film) => `
+        <button class="tab" type="button" role="tab" aria-selected="${film.id === activeFilm.id}" data-film="${film.id}">
+          <strong>${film.title}</strong>
+          <small>${film.model}</small>
+        </button>
+      `).join("");
+    }
+
+    function renderContent() {
+      content.innerHTML = `
+        <div class="film-meta">
+          <div>
+            <h2>${activeFilm.title}</h2>
+            <p>${activeFilm.logline}</p>
+          </div>
+          <div class="tone">
+            <strong>影调设计</strong>
+            ${activeFilm.tone}
+          </div>
+        </div>
+
+        <section class="cast" aria-label="${activeFilm.title}选角定妆">
+          <img class="cast-image" src="${activeFilm.cast.image}" alt="${activeFilm.title}主角选角定妆照">
+          <div class="cast-copy">
+            <div class="label">Casting / Look</div>
+            <h3>${activeFilm.cast.title}</h3>
+            <p>${activeFilm.cast.note}</p>
+            <span class="source">定妆照作为本剧关键帧的角色参考，保持脸型、年龄和服装逻辑连续。</span>
+          </div>
+        </section>
+
+        <div class="frames-heading">
+          <h3>关键剧照</h3>
+          <span>点击缩略图查看大图和剧情节点</span>
+        </div>
+
+        <section class="frame-grid" aria-label="${activeFilm.title}关键剧照">
+          ${activeFilm.frames.map((frame, index) => `
+            <button class="frame" type="button" aria-current="${frame.image === activeFrame.image}" data-frame="${index}">
+              <img class="frame-image" src="${frame.image}" alt="${frame.title}">
+              <span class="frame-copy">
+                <span class="frame-index">FRAME ${String(index + 1).padStart(2, "0")}</span>
+                <span class="frame-title">${frame.title}</span>
+                <span class="frame-note">${frame.source}</span>
+              </span>
+            </button>
+          `).join("")}
+        </section>
+
+        <section class="viewer" aria-label="当前关键剧照">
+          <figure class="viewer-figure">
+            <img class="viewer-image" src="${activeFrame.image}" alt="${activeFrame.title}">
+          </figure>
+          <div class="viewer-copy">
+            <div class="kicker">Selected Frame</div>
+            <h3>${activeFrame.title}</h3>
+            <p>${activeFrame.note}</p>
+            <div class="source">${activeFrame.source}</div>
+          </div>
+        </section>
+      `;
+    }
+
+    tabs.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-film]");
+      if (!button) return;
+      activeFilm = films.find((film) => film.id === button.dataset.film) || films[0];
+      activeFrame = activeFilm.frames[0];
+      renderTabs();
+      renderContent();
+    });
+
+    content.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-frame]");
+      if (!button) return;
+      activeFrame = activeFilm.frames[Number(button.dataset.frame)] || activeFilm.frames[0];
+      renderContent();
+    });
+
+    renderTabs();
+    renderContent();
+  </script>
+</body>
+</html>
