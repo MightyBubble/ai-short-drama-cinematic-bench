@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三国：平行宇宙 · 概念图合集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14110f;
+      --paper: #e8dfd0;
+      --cinnabar: #b42318;
+      --jade: #1f5c4d;
+      --teal: #2a6f78;
+      --gold: #c9a24a;
+      --smoke: #6e655a;
+      --panel: rgba(20, 17, 15, 0.72);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(180, 35, 24, 0.28), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(42, 111, 120, 0.22), transparent 50%),
+        linear-gradient(180deg, #1a1512 0%, #0e0c0b 45%, #15110f 100%);
+      font-family: "ZCOOL XiaoWei", "Noto Serif SC", serif;
+      min-width: 320px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      background-image: radial-gradient(rgba(232, 223, 208, .55) 0.7px, transparent 0.7px);
+      background-size: 3px 3px;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Hero: one composition */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      transform: scale(1.04);
+      animation: drift 18s ease-in-out infinite alternate;
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(14, 12, 11, .18) 0%, rgba(14, 12, 11, .35) 42%, rgba(14, 12, 11, .92) 100%),
+        linear-gradient(90deg, rgba(14, 12, 11, .55), transparent 40%);
+    }
+
+    .hero-copy {
+      padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 8vw, 88px);
+      max-width: 720px;
+      animation: rise .9s ease both;
+    }
+
+    .brand {
+      margin: 0 0 18px;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: clamp(42px, 8vw, 92px);
+      line-height: .95;
+      letter-spacing: .04em;
+      text-shadow: 0 2px 0 rgba(0,0,0,.45), 0 18px 40px rgba(0,0,0,.45);
+    }
+
+    .brand span {
+      display: block;
+      margin-top: .18em;
+      color: var(--gold);
+      font-size: .72em;
+    }
+
+    .lede {
+      margin: 0 0 28px;
+      max-width: 34ch;
+      color: rgba(232, 223, 208, .9);
+      font-size: clamp(16px, 2.2vw, 20px);
+      line-height: 1.55;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta {
+      appearance: none;
+      border: 1px solid rgba(201, 162, 74, .65);
+      background: linear-gradient(180deg, rgba(180, 35, 24, .92), rgba(120, 22, 16, .92));
+      color: var(--paper);
+      text-decoration: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      letter-spacing: .12em;
+      transition: transform .25s ease, border-color .25s ease, filter .25s ease;
+    }
+
+    .cta.ghost {
+      background: rgba(20, 17, 15, .45);
+      border-color: rgba(232, 223, 208, .35);
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      border-color: var(--gold);
+    }
+
+    section {
+      padding: clamp(48px, 8vw, 96px) 0;
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+      max-width: 40ch;
+      animation: rise .8s ease both;
+    }
+
+    .section-head h2 {
+      margin: 0 0 10px;
+      font-family: "Noto Serif SC", serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--smoke);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      display: grid;
+      gap: 22px;
+    }
+
+    .shot {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      background: #0a0908;
+      border: 1px solid rgba(232, 223, 208, .12);
+      animation: rise .8s ease both;
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+      transition: transform 1.1s ease;
+    }
+
+    .shot:hover img {
+      transform: scale(1.02);
+    }
+
+    .shot figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      padding: 14px 16px 16px;
+      background: var(--panel);
+      border-top: 1px solid rgba(232, 223, 208, .1);
+    }
+
+    .shot strong {
+      font-family: "Noto Serif SC", serif;
+      font-size: 18px;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .shot span {
+      color: var(--smoke);
+      font-size: 14px;
+      line-height: 1.45;
+      text-align: right;
+    }
+
+    .worlds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .world {
+      padding: 18px 16px;
+      border: 1px solid rgba(232, 223, 208, .14);
+      background:
+        linear-gradient(160deg, rgba(42, 111, 120, .12), transparent 55%),
+        rgba(20, 17, 15, .55);
+      min-height: 140px;
+      animation: rise .8s ease both;
+    }
+
+    .world:nth-child(2) {
+      background:
+        linear-gradient(160deg, rgba(180, 35, 24, .14), transparent 55%),
+        rgba(20, 17, 15, .55);
+    }
+
+    .world:nth-child(3) {
+      background:
+        linear-gradient(160deg, rgba(31, 92, 77, .18), transparent 55%),
+        rgba(20, 17, 15, .55);
+    }
+
+    .world h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: .18em;
+      color: var(--gold);
+    }
+
+    .world p {
+      margin: 0;
+      color: rgba(232, 223, 208, .78);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    footer {
+      padding: 28px 0 56px;
+      color: var(--smoke);
+      font-size: 13px;
+      border-top: 1px solid rgba(232, 223, 208, .12);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    @keyframes drift {
+      from { transform: scale(1.04) translate3d(0, 0, 0); }
+      to { transform: scale(1.08) translate3d(-1.2%, -1%, 0); }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .pair, .worlds { grid-template-columns: 1fr; }
+      .shot figcaption {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .shot span { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <img src="art/tk-verse-01-key-art.png" alt="">
+    </div>
+    <div class="wrap hero-copy">
+      <h1 class="brand">三国<span>平行宇宙</span></h1>
+      <p class="lede">乱世被撕开。魏、蜀、吴不再只是旗帜颜色——每个世界，一种画法。</p>
+      <div class="cta-row">
+        <a class="cta" href="#gallery">翻开概念图</a>
+        <a class="cta ghost" href="IP设计.md">阅读 IP 设定</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>一界一质</h2>
+          <p>先认世界，再认武将。进入新宇宙时，盔甲、旗帜、天光都会被当地笔触改写。</p>
+        </div>
+        <div class="worlds">
+          <article class="world">
+            <h3>魏</h3>
+            <p>冷马克笔秩序城。楼阙如尺，军阵如印。</p>
+          </article>
+          <article class="world">
+            <h3>蜀</h3>
+            <p>暖水彩山城。人情与雾气一起洇开。</p>
+          </article>
+          <article class="world">
+            <h3>吴</h3>
+            <p>青绿网点水寨。浪是图形，帆是剪影。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>概念图合集</h2>
+          <p>八张图，从品牌主视觉走到裂隙终局——像给新玩家的第一趟平行乱世游览。</p>
+        </div>
+        <div class="gallery">
+          <figure class="shot">
+            <img src="art/tk-verse-01-key-art.png" alt="三国：平行宇宙主视觉，城墙上的武将面对撕裂的多重世界">
+            <figcaption>
+              <strong>01 · 品牌主视觉</strong>
+              <span>你站在城头，看见三国被撕成多重世界。</span>
+            </figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="art/tk-verse-02-triptych-worlds.png" alt="魏蜀吴三个平行宇宙的三联世界设计">
+            <figcaption>
+              <strong>02 · 魏蜀吴三联宇宙</strong>
+              <span>马克笔魏都 · 水彩蜀山 · 网点吴水。</span>
+            </figcaption>
+          </figure>
+
+          <div class="pair">
+            <figure class="shot">
+              <img src="art/tk-verse-03-hero-guan.png" alt="绿色战袍武将的竖幅近景角色概念">
+              <figcaption>
+                <strong>03 · 平行武将</strong>
+                <span>近景甲胄毛边，剪影一秒可认。</span>
+              </figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="art/tk-verse-07-strategist-watercolor.png" alt="手持羽扇的军师水彩情绪宇宙概念">
+              <figcaption>
+                <strong>07 · 军师情绪宇宙</strong>
+                <span>谋略段落：颜色会随心境变。</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <figure class="shot">
+            <img src="art/tk-verse-04-cross-universe-clash.png" alt="红青两色武将在空中材质对撞">
+            <figcaption>
+              <strong>04 · 跨宇宙对决</strong>
+              <span>两种画法正面相撞，残影代替镜头模糊。</span>
+            </figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="art/tk-verse-08-panel-battle.png" alt="骑兵冲锋、兵器碰撞与火攻水战的漫画分格战场">
+            <figcaption>
+              <strong>08 · 分格战场</strong>
+              <span>打仗像翻连环画：冲锋、锵、火攻。</span>
+            </figcaption>
+          </figure>
+
+          <div class="pair">
+            <figure class="shot">
+              <img src="art/tk-verse-06-rebel-collage.png" alt="黄巾起义油印拼贴风格的叛军宇宙">
+              <figcaption>
+                <strong>06 · 黄巾油印宇宙</strong>
+                <span>粗糙传单感，像被复印过一百次的愤怒。</span>
+              </figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="art/tk-verse-05-rift-boss.png" alt="半线稿半实体的未完成之帝裂隙BOSS">
+              <figcaption>
+                <strong>05 · 未完成之帝</strong>
+                <span>终局威胁：没画完的帝王，正在吞掉世界。</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>视觉语法参考平行宇宙动画三部曲的印刷语言与「一宇宙一材质」，角色与标志均为原创三国演绎。</p>
+      <p><a href="IP设计.md">完整 IP 设定（含场景与验收）</a></p>
+    </div>
+  </footer>
+</body>
+</html>
