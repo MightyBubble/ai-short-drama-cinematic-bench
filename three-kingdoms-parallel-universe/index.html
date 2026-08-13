@@ -3,303 +3,108 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>三国：平行宇宙 · 概念图合集</title>
+  <title>三国：平行宇宙 · 游戏概念合集</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #14110f;
-      --paper: #e8dfd0;
-      --cinnabar: #b42318;
-      --jade: #1f5c4d;
-      --teal: #2a6f78;
-      --gold: #c9a24a;
-      --smoke: #6e655a;
-      --panel: rgba(20, 17, 15, 0.72);
+      --bg: #0a0a0c;
+      --paper: #f2efe8;
+      --muted: #9a958c;
+      --wei-black: #111114;
+      --wei-gold: #d4b35a;
+      --wei-red: #c41e2a;
+      --shu-red: #e11d2e;
+      --shu-white: #f7f4ef;
+      --shu-blue: #2f6bff;
+      --wu-teal: #1f8a8a;
+      --wu-blue: #1d4e89;
+      --wu-orange: #f07a2a;
+      --line: rgba(242,239,232,.14);
+      --panel: rgba(14,14,18,.78);
     }
-
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
+      min-width: 320px;
       color: var(--paper);
       background:
-        radial-gradient(1200px 700px at 15% -10%, rgba(180, 35, 24, 0.28), transparent 55%),
-        radial-gradient(900px 600px at 90% 10%, rgba(42, 111, 120, 0.22), transparent 50%),
-        linear-gradient(180deg, #1a1512 0%, #0e0c0b 45%, #15110f 100%);
-      font-family: "ZCOOL XiaoWei", "Noto Serif SC", serif;
-      min-width: 320px;
+        radial-gradient(900px 500px at 10% 0%, rgba(225,29,46,.22), transparent 55%),
+        radial-gradient(800px 480px at 90% 8%, rgba(31,138,138,.2), transparent 50%),
+        radial-gradient(700px 420px at 50% 100%, rgba(212,179,90,.08), transparent 45%),
+        var(--bg);
+      font-family: "Noto Sans SC", sans-serif;
     }
-
     body::before {
       content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .08;
-      background-image: radial-gradient(rgba(232, 223, 208, .55) 0.7px, transparent 0.7px);
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .07;
+      background-image: radial-gradient(#fff 0.7px, transparent 0.7px);
       background-size: 3px 3px;
-      z-index: 0;
     }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      width: min(1240px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    /* Hero: one composition */
+    .wrap { position: relative; z-index: 1; width: min(1280px, calc(100% - 32px)); margin: 0 auto; }
     .hero {
-      min-height: 100svh;
-      display: grid;
-      align-items: end;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
+      min-height: 100svh; display: grid; align-items: end; position: relative; overflow: hidden; isolation: isolate;
     }
-
-    .hero-media {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-    }
-
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 35%;
-      transform: scale(1.04);
-      animation: drift 18s ease-in-out infinite alternate;
-      filter: saturate(1.05) contrast(1.05);
-    }
-
+    .hero-media { position: absolute; inset: 0; z-index: -2; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; animation: drift 16s ease-in-out infinite alternate; }
     .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(180deg, rgba(14, 12, 11, .18) 0%, rgba(14, 12, 11, .35) 42%, rgba(14, 12, 11, .92) 100%),
-        linear-gradient(90deg, rgba(14, 12, 11, .55), transparent 40%);
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, rgba(10,10,12,.2), rgba(10,10,12,.55) 45%, rgba(10,10,12,.94));
     }
-
-    .hero-copy {
-      padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 8vw, 88px);
-      max-width: 720px;
-      animation: rise .9s ease both;
-    }
-
+    .hero-copy { padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 8vw, 88px); max-width: 720px; animation: rise .9s ease both; }
     .brand {
-      margin: 0 0 18px;
-      font-family: "Noto Serif SC", serif;
-      font-weight: 900;
-      font-size: clamp(42px, 8vw, 92px);
-      line-height: .95;
-      letter-spacing: .04em;
-      text-shadow: 0 2px 0 rgba(0,0,0,.45), 0 18px 40px rgba(0,0,0,.45);
+      margin: 0 0 16px; font-family: Orbitron, "Noto Sans SC", sans-serif; font-weight: 800;
+      font-size: clamp(34px, 7vw, 78px); line-height: .95; letter-spacing: .04em;
+      text-shadow: 0 0 0 1px rgba(255,255,255,.08), 2px 0 0 rgba(47,107,255,.35), -2px 0 0 rgba(225,29,46,.35);
     }
-
-    .brand span {
-      display: block;
-      margin-top: .18em;
-      color: var(--gold);
-      font-size: .72em;
-    }
-
-    .lede {
-      margin: 0 0 28px;
-      max-width: 34ch;
-      color: rgba(232, 223, 208, .9);
-      font-size: clamp(16px, 2.2vw, 20px);
-      line-height: 1.55;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
+    .brand span { display: block; margin-top: .12em; color: var(--shu-red); font-size: .7em; }
+    .lede { margin: 0 0 24px; max-width: 36ch; color: rgba(242,239,232,.88); font-size: clamp(15px, 2vw, 19px); line-height: 1.55; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
     .cta {
-      appearance: none;
-      border: 1px solid rgba(201, 162, 74, .65);
-      background: linear-gradient(180deg, rgba(180, 35, 24, .92), rgba(120, 22, 16, .92));
-      color: var(--paper);
-      text-decoration: none;
-      padding: 12px 20px;
-      font-size: 15px;
-      letter-spacing: .12em;
-      transition: transform .25s ease, border-color .25s ease, filter .25s ease;
+      text-decoration: none; color: var(--paper); padding: 12px 18px; letter-spacing: .08em; font-size: 14px; font-weight: 700;
+      border: 1px solid rgba(242,239,232,.35); background: rgba(10,10,12,.45); transition: transform .2s ease, border-color .2s ease;
     }
-
-    .cta.ghost {
-      background: rgba(20, 17, 15, .45);
-      border-color: rgba(232, 223, 208, .35);
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      border-color: var(--gold);
-    }
-
-    section {
-      padding: clamp(48px, 8vw, 96px) 0;
-    }
-
-    .section-head {
-      margin-bottom: 28px;
-      max-width: 40ch;
-      animation: rise .8s ease both;
-    }
-
-    .section-head h2 {
-      margin: 0 0 10px;
-      font-family: "Noto Serif SC", serif;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 700;
-      letter-spacing: .08em;
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--smoke);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .gallery {
-      display: grid;
-      gap: 22px;
-    }
-
-    .shot {
-      margin: 0;
-      position: relative;
-      overflow: hidden;
-      background: #0a0908;
-      border: 1px solid rgba(232, 223, 208, .12);
-      animation: rise .8s ease both;
-    }
-
-    .shot img {
-      display: block;
-      width: 100%;
-      height: auto;
-      vertical-align: middle;
-      transition: transform 1.1s ease;
-    }
-
-    .shot:hover img {
-      transform: scale(1.02);
-    }
-
+    .cta.primary { background: linear-gradient(180deg, #e11d2e, #9d1420); border-color: rgba(255,255,255,.2); }
+    .cta:hover { transform: translateY(-2px); border-color: #fff; }
+    section { padding: clamp(48px, 7vw, 88px) 0; }
+    .section-head { margin-bottom: 22px; max-width: 46ch; }
+    .section-head h2 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 40px); letter-spacing: .06em; }
+    .section-head p { margin: 0; color: var(--muted); line-height: 1.6; }
+    .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .swatch { border: 1px solid var(--line); padding: 16px; min-height: 140px; animation: rise .8s ease both; }
+    .swatch h3 { margin: 0 0 8px; letter-spacing: .2em; font-size: 20px; }
+    .swatch p { margin: 0; color: rgba(242,239,232,.78); font-size: 14px; line-height: 1.5; }
+    .bar { display: flex; height: 10px; margin: 12px 0 10px; overflow: hidden; }
+    .bar i { display: block; height: 100%; }
+    .wei { background: linear-gradient(160deg, rgba(212,179,90,.16), transparent 55%), rgba(17,17,20,.8); }
+    .shu { background: linear-gradient(160deg, rgba(225,29,46,.18), transparent 55%), rgba(17,17,20,.8); }
+    .wu { background: linear-gradient(160deg, rgba(31,138,138,.2), transparent 55%), rgba(17,17,20,.8); }
+    .grid { display: grid; gap: 16px; }
+    .grid.ui { grid-template-columns: repeat(2, 1fr); }
+    .grid.chars { grid-template-columns: repeat(3, 1fr); }
+    .shot { margin: 0; overflow: hidden; border: 1px solid var(--line); background: #050507; animation: rise .8s ease both; }
+    .shot img { display: block; width: 100%; height: auto; transition: transform 1s ease; }
+    .shot:hover img { transform: scale(1.02); }
     .shot figcaption {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: baseline;
-      padding: 14px 16px 16px;
-      background: var(--panel);
-      border-top: 1px solid rgba(232, 223, 208, .1);
+      display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+      padding: 12px 14px 14px; background: var(--panel); border-top: 1px solid var(--line);
     }
-
-    .shot strong {
-      font-family: "Noto Serif SC", serif;
-      font-size: 18px;
-      letter-spacing: .08em;
-      font-weight: 700;
+    .shot strong { font-size: 15px; letter-spacing: .06em; }
+    .shot span { color: var(--muted); font-size: 13px; text-align: right; line-height: 1.4; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .tabs a {
+      color: var(--paper); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; font-size: 13px; letter-spacing: .08em;
     }
-
-    .shot span {
-      color: var(--smoke);
-      font-size: 14px;
-      line-height: 1.45;
-      text-align: right;
-    }
-
-    .worlds {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .world {
-      padding: 18px 16px;
-      border: 1px solid rgba(232, 223, 208, .14);
-      background:
-        linear-gradient(160deg, rgba(42, 111, 120, .12), transparent 55%),
-        rgba(20, 17, 15, .55);
-      min-height: 140px;
-      animation: rise .8s ease both;
-    }
-
-    .world:nth-child(2) {
-      background:
-        linear-gradient(160deg, rgba(180, 35, 24, .14), transparent 55%),
-        rgba(20, 17, 15, .55);
-    }
-
-    .world:nth-child(3) {
-      background:
-        linear-gradient(160deg, rgba(31, 92, 77, .18), transparent 55%),
-        rgba(20, 17, 15, .55);
-    }
-
-    .world h3 {
-      margin: 0 0 8px;
-      font-size: 22px;
-      letter-spacing: .18em;
-      color: var(--gold);
-    }
-
-    .world p {
-      margin: 0;
-      color: rgba(232, 223, 208, .78);
-      font-size: 15px;
-      line-height: 1.55;
-    }
-
-    .pair {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    footer {
-      padding: 28px 0 56px;
-      color: var(--smoke);
-      font-size: 13px;
-      border-top: 1px solid rgba(232, 223, 208, .12);
-    }
-
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    @keyframes drift {
-      from { transform: scale(1.04) translate3d(0, 0, 0); }
-      to { transform: scale(1.08) translate3d(-1.2%, -1%, 0); }
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    .tabs a:hover { border-color: #fff; }
+    footer { padding: 28px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+    footer a { color: var(--wei-gold); text-decoration: none; }
+    @keyframes drift { from { transform: scale(1.04); } to { transform: scale(1.08) translate(-1%, -1%); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
     @media (max-width: 900px) {
-      .pair, .worlds { grid-template-columns: 1fr; }
-      .shot figcaption {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .swatches, .grid.ui, .grid.chars { grid-template-columns: 1fr; }
+      .shot figcaption { flex-direction: column; align-items: flex-start; }
       .shot span { text-align: left; }
     }
   </style>
@@ -307,14 +112,15 @@
 <body>
   <header class="hero">
     <div class="hero-media" aria-hidden="true">
-      <img src="art/tk-verse-01-key-art.png" alt="">
+      <img src="ui/ui-shu-menu.png" alt="">
     </div>
     <div class="wrap hero-copy">
-      <h1 class="brand">三国<span>平行宇宙</span></h1>
-      <p class="lede">先抓住会动的漫画宇宙：网点、套印错位、一界一质。IP 名是三国，画面语法是平行宇宙电影。</p>
+      <h1 class="brand">PARALLEL<span>UNIVERSE</span></h1>
+      <p class="lede">三分势力三套油墨频道。战斗、养成、主菜单、城市冒险——像远征队与异闻录那样，界面本身就是演出。</p>
       <div class="cta-row">
-        <a class="cta" href="#gallery">翻开概念图</a>
-        <a class="cta ghost" href="IP设计.md">阅读 IP 设定</a>
+        <a class="cta primary" href="#ui">看游戏界面</a>
+        <a class="cta" href="#chars">看角色阵容</a>
+        <a class="cta" href="docs/角色阵容-潮酷解构.md">读解构设定</a>
       </div>
     </div>
   </header>
@@ -323,98 +129,107 @@
     <section>
       <div class="wrap">
         <div class="section-head">
-          <h2>一界一质</h2>
-          <p>换世界不是换皮肤，是换整套绘画介质——和电影里跳宇宙同一套直觉。</p>
+          <h2>油墨频道 7:2:1</h2>
+          <p>主色七成定场，辅色两成做边框选中，点缀一成只负责危险、就绪与确认。</p>
         </div>
-        <div class="worlds">
-          <article class="world">
+        <div class="swatches">
+          <article class="swatch wei">
             <h3>魏维</h3>
-            <p>冷马克笔未来城。尺线、透叠、青品红套印。</p>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#111114"></i><i style="width:20%;background:#d4b35a"></i><i style="width:10%;background:#c41e2a"></i></div>
+            <p>黑金红 · 秩序压迫 · 工业律法防暴</p>
           </article>
-          <article class="world">
+          <article class="swatch shu">
             <h3>蜀维</h3>
-            <p>情绪水彩城。颜色跟着心境跑。</p>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#e11d2e"></i><i style="width:20%;background:#f7f4ef"></i><i style="width:10%;background:#2f6bff"></i></div>
+            <p>红白蓝 · 偶像正义 · 海报留白呼吸</p>
           </article>
-          <article class="world">
+          <article class="swatch wu">
             <h3>吴维</h3>
-            <p>高对比网点 / 拼贴城。印刷噪点就是氛围。</p>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#1f8a8a"></i><i style="width:20%;background:#1d4e89"></i><i style="width:10%;background:#f07a2a"></i></div>
+            <p>青蓝橘 · 雨港疾速 · CRT 声呐电台</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="gallery">
+    <section id="ui">
       <div class="wrap">
         <div class="section-head">
-          <h2>概念图合集</h2>
-          <p>八张图，从品牌主视觉走到裂隙终局——像给新玩家的第一趟平行乱世游览。</p>
+          <h2>游戏内界面</h2>
+          <p>战斗 / 养成 / 主菜单 / 城市冒险。同一印刷语法，三套频道皮肤。</p>
         </div>
-        <div class="gallery">
-          <figure class="shot">
-            <img src="art/tk-verse-01-key-art.png" alt="三国：平行宇宙主视觉，城墙上的武将面对撕裂的多重世界">
-            <figcaption>
-              <strong>01 · 品牌主视觉</strong>
-              <span>跃出画面的平行宇宙海报：网点、残影、碎裂次元。</span>
-            </figcaption>
-          </figure>
+        <div class="tabs">
+          <a href="#battle">战斗</a>
+          <a href="#build">养成</a>
+          <a href="#menu">主菜单</a>
+          <a href="#city">城市</a>
+        </div>
 
-          <figure class="shot">
-            <img src="art/tk-verse-02-triptych-worlds.png" alt="三个平行宇宙的三联世界设计">
-            <figcaption>
-              <strong>02 · 三宇宙三联</strong>
-              <span>马克笔城 · 情绪水彩城 · 网点拼贴城。</span>
-            </figcaption>
-          </figure>
+        <h3 id="battle" style="letter-spacing:.12em;margin:0 0 12px;color:var(--muted);font-size:14px;">BATTLE</h3>
+        <div class="grid ui">
+          <figure class="shot"><img src="ui/ui-wei-battle.png" alt="魏维战斗界面"><figcaption><strong>魏 · 战斗</strong><span>防暴指挥台贴边压迫</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-shu-battle.png" alt="蜀维战斗界面"><figcaption><strong>蜀 · 战斗</strong><span>红海报连招板</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-wu-battle.png" alt="吴维战斗界面"><figcaption><strong>吴 · 战斗</strong><span>声呐电台疾驶窗</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-wei-build.png" alt="魏维养成界面"><figcaption><strong>魏 · 养成</strong><span>许可制节点构筑</span></figcaption></figure>
+        </div>
 
-          <div class="pair">
-            <figure class="shot">
-              <img src="art/tk-verse-03-hero-guan.png" alt="竖幅英雄近景角色概念">
-              <figcaption>
-                <strong>03 · 平行英雄近景</strong>
-                <span>IMAX 式印刷细节，粗线 + 网点皮肤。</span>
-              </figcaption>
-            </figure>
-            <figure class="shot">
-              <img src="art/tk-verse-07-strategist-watercolor.png" alt="情绪水彩宇宙角色概念">
-              <figcaption>
-                <strong>07 · 情绪水彩角色</strong>
-                <span>颜色跟着心境变的角色宇宙。</span>
-              </figcaption>
-            </figure>
-          </div>
+        <h3 id="build" style="letter-spacing:.12em;margin:28px 0 12px;color:var(--muted);font-size:14px;">BUILD</h3>
+        <div class="grid ui">
+          <figure class="shot"><img src="ui/ui-shu-build.png" alt="蜀维养成界面"><figcaption><strong>蜀 · 养成</strong><span>专辑内页贴纸构筑</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-wu-build.png" alt="吴维养成界面"><figcaption><strong>吴 · 养成</strong><span>港务频率校准台</span></figcaption></figure>
+        </div>
 
-          <figure class="shot">
-            <img src="art/tk-verse-04-cross-universe-clash.png" alt="红青两色英雄在空中材质对撞">
-            <figcaption>
-              <strong>04 · 跨宇宙对撞</strong>
-              <span>两种材质正面相撞，残影代替镜头模糊。</span>
-            </figcaption>
-          </figure>
+        <h3 id="menu" style="letter-spacing:.12em;margin:28px 0 12px;color:var(--muted);font-size:14px;">MAIN MENU</h3>
+        <div class="grid ui">
+          <figure class="shot"><img src="ui/ui-wei-menu.png" alt="魏维主菜单"><figcaption><strong>魏 · 主菜单</strong><span>律法大厦开机仪式</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-shu-menu.png" alt="蜀维主菜单"><figcaption><strong>蜀 · 主菜单</strong><span>偶像海报封面舞台</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-wu-menu.png" alt="吴维主菜单"><figcaption><strong>吴 · 主菜单</strong><span>雨巷通联站</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-shu-city.png" alt="蜀维城市冒险"><figcaption><strong>蜀 · 城市</strong><span>漫画页上走路</span></figcaption></figure>
+        </div>
 
-          <figure class="shot">
-            <img src="art/tk-verse-08-panel-battle.png" alt="漫画分格战场概念">
-            <figcaption>
-              <strong>08 · 分格战场</strong>
-              <span>战斗像翻一页会动的漫画。</span>
-            </figcaption>
-          </figure>
+        <h3 id="city" style="letter-spacing:.12em;margin:28px 0 12px;color:var(--muted);font-size:14px;">CITY</h3>
+        <div class="grid ui">
+          <figure class="shot"><img src="ui/ui-wei-city.png" alt="魏维城市冒险"><figcaption><strong>魏 · 城市</strong><span>宵禁防区漫游</span></figcaption></figure>
+          <figure class="shot"><img src="ui/ui-wu-city.png" alt="吴维城市冒险"><figcaption><strong>吴 · 城市</strong><span>雨港听声辨位</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
 
-          <div class="pair">
-            <figure class="shot">
-              <img src="art/tk-verse-06-rebel-collage.png" alt="油印拼贴风格的叛军宇宙">
-              <figcaption>
-                <strong>06 · 叛军拼贴宇宙</strong>
-                <span>Xerox、胶带、错印——粗糙就是态度。</span>
-              </figcaption>
-            </figure>
-            <figure class="shot">
-              <img src="art/tk-verse-05-rift-boss.png" alt="未完成线稿裂隙反派概念">
-              <figcaption>
-                <strong>05 · 裂隙反派</strong>
-                <span>蓝铅笔底稿撞上泼墨负空间。</span>
-              </figcaption>
-            </figure>
-          </div>
+    <section id="chars">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>角色阵容</h2>
+          <p>职能席位潮酷化：不写古人名，只用代号。现代身份 + 夸张剪影 + 可折叠道具。</p>
+        </div>
+
+        <h3 style="letter-spacing:.12em;margin:0 0 12px;color:var(--shu-red);font-size:14px;">SHU TIGERS / STRATEGISTS</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="characters/char-scarlet-oathblade.png" alt="Scarlet Oathblade"><figcaption><strong>Scarlet Oathblade</strong><span>誓约红刀偶像</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-thunder-brawler.png" alt="Thunder Brawler"><figcaption><strong>Thunder Brawler</strong><span>雷暴摔角明星</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-white-lance-ace.png" alt="White Lance Ace"><figcaption><strong>White Lance Ace</strong><span>白矛电竞王牌</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-gale-cavalier.png" alt="Gale Cavalier"><figcaption><strong>Gale Cavalier</strong><span>疾风摩托骑士</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-crimson-marksman.png" alt="Crimson Marksman"><figcaption><strong>Crimson Marksman</strong><span>绯红时尚猎人</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-oracle-architect.png" alt="Oracle Architect"><figcaption><strong>Oracle Architect</strong><span>城市架构军师</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-inferno-schemer.png" alt="Inferno Schemer"><figcaption><strong>Inferno Schemer</strong><span>焚线阴谋制作人</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-supply-maestro.png" alt="Supply Maestro"><figcaption><strong>Supply Maestro</strong><span>供应链指挥 DJ</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-velvet-envoy.png" alt="Velvet Envoy"><figcaption><strong>Velvet Envoy</strong><span>丝绒外交公关</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-witstrike-orator.png" alt="Witstrike Orator"><figcaption><strong>Witstrike Orator</strong><span>机锋律政脱口秀</span></figcaption></figure>
+        </div>
+
+        <h3 style="letter-spacing:.12em;margin:32px 0 12px;color:var(--wei-gold);font-size:14px;">WEI ELITES</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="characters/char-siege-hammer.png" alt="Siege Hammer"><figcaption><strong>Siege Hammer</strong><span>工业破城破坏手</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-night-raid-fox.png" alt="Night Raid Fox"><figcaption><strong>Night Raid Fox</strong><span>夜袭狐狸特工</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-iron-bastion.png" alt="Iron Bastion"><figcaption><strong>Iron Bastion</strong><span>铁壁安保总监</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-aegis-ranger.png" alt="Aegis Ranger"><figcaption><strong>Aegis Ranger</strong><span>神盾巡查员</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-vanguard-spike.png" alt="Vanguard Spike"><figcaption><strong>Vanguard Spike</strong><span>先锋穿刺突击手</span></figcaption></figure>
+        </div>
+
+        <h3 style="letter-spacing:.12em;margin:32px 0 12px;color:var(--wu-teal);font-size:14px;">WU BALANCE</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="characters/char-tide-captain.png" alt="Tide Captain"><figcaption><strong>Tide Captain</strong><span>潮汐港湾船长</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-hydro-skater.png" alt="Hydro Skater"><figcaption><strong>Hydro Skater</strong><span>水上滑板特技手</span></figcaption></figure>
+          <figure class="shot"><img src="characters/char-mist-tactician.png" alt="Mist Tactician"><figcaption><strong>Mist Tactician</strong><span>雾港战术导演</span></figcaption></figure>
         </div>
       </div>
     </section>
@@ -422,8 +237,14 @@
 
   <footer>
     <div class="wrap">
-      <p>生图只锁 Spider-Verse 画面语法；「三国：平行宇宙」是展示层 IP 名。角色与标志均为原创。</p>
-      <p><a href="IP设计.md">完整 IP 设定（含场景与验收）</a></p>
+      <p>生图只锁 Spider-Verse 印刷语法 + E33/P4R 界面气质；「三国：平行宇宙」为展示层 IP 名。角色仅用英文代号。</p>
+      <p>
+        <a href="docs/魏势力-游戏UI概念.md">魏 UI</a> ·
+        <a href="docs/蜀势力-游戏UI概念.md">蜀 UI</a> ·
+        <a href="docs/吴势力-游戏UI概念.md">吴 UI</a> ·
+        <a href="docs/角色阵容-潮酷解构.md">角色解构</a> ·
+        <a href="IP设计.md">总设定</a>
+      </p>
     </div>
   </footer>
 </body>
