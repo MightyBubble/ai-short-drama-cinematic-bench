@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三国：平行宇宙 · 游戏概念合集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --paper: #f2efe8;
+      --muted: #9a958c;
+      --wei-black: #111114;
+      --wei-gold: #d4b35a;
+      --wei-red: #c41e2a;
+      --shu-red: #e11d2e;
+      --shu-white: #f7f4ef;
+      --shu-blue: #2f6bff;
+      --wu-teal: #1f8a8a;
+      --wu-blue: #1d4e89;
+      --wu-orange: #f07a2a;
+      --line: rgba(242,239,232,.14);
+      --panel: rgba(14,14,18,.78);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--paper);
+      background:
+        radial-gradient(900px 500px at 10% 0%, rgba(225,29,46,.22), transparent 55%),
+        radial-gradient(800px 480px at 90% 8%, rgba(31,138,138,.2), transparent 50%),
+        radial-gradient(700px 420px at 50% 100%, rgba(212,179,90,.08), transparent 45%),
+        var(--bg);
+      font-family: "Noto Sans SC", sans-serif;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .07;
+      background-image: radial-gradient(#fff 0.7px, transparent 0.7px);
+      background-size: 3px 3px;
+    }
+    .wrap { position: relative; z-index: 1; width: min(1280px, calc(100% - 32px)); margin: 0 auto; }
+    .hero {
+      min-height: 100svh; display: grid; align-items: end; position: relative; overflow: hidden; isolation: isolate;
+    }
+    .hero-media { position: absolute; inset: 0; z-index: -2; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; animation: drift 16s ease-in-out infinite alternate; }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, rgba(10,10,12,.2), rgba(10,10,12,.55) 45%, rgba(10,10,12,.94));
+    }
+    .hero-copy { padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 8vw, 88px); max-width: 720px; animation: rise .9s ease both; }
+    .brand {
+      margin: 0 0 16px; font-family: Orbitron, "Noto Sans SC", sans-serif; font-weight: 800;
+      font-size: clamp(34px, 7vw, 78px); line-height: .95; letter-spacing: .04em;
+      text-shadow: 0 0 0 1px rgba(255,255,255,.08), 2px 0 0 rgba(47,107,255,.35), -2px 0 0 rgba(225,29,46,.35);
+    }
+    .brand span { display: block; margin-top: .12em; color: var(--shu-red); font-size: .7em; }
+    .lede { margin: 0 0 24px; max-width: 36ch; color: rgba(242,239,232,.88); font-size: clamp(15px, 2vw, 19px); line-height: 1.55; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cta {
+      text-decoration: none; color: var(--paper); padding: 12px 18px; letter-spacing: .08em; font-size: 14px; font-weight: 700;
+      border: 1px solid rgba(242,239,232,.35); background: rgba(10,10,12,.45); transition: transform .2s ease, border-color .2s ease;
+    }
+    .cta.primary { background: linear-gradient(180deg, #e11d2e, #9d1420); border-color: rgba(255,255,255,.2); }
+    .cta:hover { transform: translateY(-2px); border-color: #fff; }
+    section { padding: clamp(48px, 7vw, 88px) 0; }
+    .section-head { margin-bottom: 22px; max-width: 46ch; }
+    .section-head h2 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 40px); letter-spacing: .06em; }
+    .section-head p { margin: 0; color: var(--muted); line-height: 1.6; }
+    .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .swatch { border: 1px solid var(--line); padding: 16px; min-height: 140px; animation: rise .8s ease both; }
+    .swatch h3 { margin: 0 0 8px; letter-spacing: .2em; font-size: 20px; }
+    .swatch p { margin: 0; color: rgba(242,239,232,.78); font-size: 14px; line-height: 1.5; }
+    .bar { display: flex; height: 10px; margin: 12px 0 10px; overflow: hidden; }
+    .bar i { display: block; height: 100%; }
+    .wei { background: linear-gradient(160deg, rgba(212,179,90,.16), transparent 55%), rgba(17,17,20,.8); }
+    .shu { background: linear-gradient(160deg, rgba(225,29,46,.18), transparent 55%), rgba(17,17,20,.8); }
+    .wu { background: linear-gradient(160deg, rgba(31,138,138,.2), transparent 55%), rgba(17,17,20,.8); }
+    .grid { display: grid; gap: 16px; }
+    .grid.ui { grid-template-columns: repeat(2, 1fr); }
+    .grid.chars { grid-template-columns: repeat(3, 1fr); }
+    .shot { margin: 0; overflow: hidden; border: 1px solid var(--line); background: #050507; animation: rise .8s ease both; }
+    .shot img { display: block; width: 100%; height: auto; transition: transform 1s ease; }
+    .shot:hover img { transform: scale(1.02); }
+    .shot figcaption {
+      display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+      padding: 12px 14px 14px; background: var(--panel); border-top: 1px solid var(--line);
+    }
+    .shot strong { font-size: 15px; letter-spacing: .06em; }
+    .shot span { color: var(--muted); font-size: 13px; text-align: right; line-height: 1.4; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .tabs a {
+      color: var(--paper); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; font-size: 13px; letter-spacing: .08em;
+    }
+    .tabs a:hover { border-color: #fff; }
+    footer { padding: 28px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+    footer a { color: var(--wei-gold); text-decoration: none; }
+    @keyframes drift { from { transform: scale(1.04); } to { transform: scale(1.08) translate(-1%, -1%); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 900px) {
+      .swatches, .grid.ui, .grid.chars { grid-template-columns: 1fr; }
+      .shot figcaption { flex-direction: column; align-items: flex-start; }
+      .shot span { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <img src="crossover/xo-01-fog-eats-two-cities.png" alt="">
+    </div>
+    <div class="wrap hero-copy">
+      <h1 class="brand">PARALLEL<span>UNIVERSE</span></h1>
+      <p class="lede">民间早就把同一批人印成无数版本。这游戏把每个版本做成一种印刷术，打在同一帧里——小人书的街被港漫撕开。</p>
+      <div class="cta-row">
+        <a class="cta primary" href="#thesis">看辩题</a>
+        <a class="cta" href="#shots">游戏截图</a>
+        <a class="cta" href="docs/辩题.md">读辩题</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>管线配色 7:2:1</h2>
+          <p>主色七成定场，辅色两成做结构与里衬，点缀一成只负责 youki、杀伤狭缝与警告灯。</p>
+        </div>
+        <div class="swatches">
+          <article class="swatch wei">
+            <h3>魏维</h3>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#111114"></i><i style="width:20%;background:#d4b35a"></i><i style="width:10%;background:#c41e2a"></i></div>
+            <p>黑金红 · Nihei 巨构排线 · 人像尘埃</p>
+          </article>
+          <article class="swatch shu">
+            <h3>蜀维</h3>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#e11d2e"></i><i style="width:20%;background:#f7f4ef"></i><i style="width:10%;background:#2f6bff"></i></div>
+            <p>红白蓝 · Yagi 银眼巨剑 · Ogura 赛璐珞雨城</p>
+          </article>
+          <article class="swatch wu">
+            <h3>吴维</h3>
+            <div class="bar" aria-hidden="true"><i style="width:70%;background:#1f8a8a"></i><i style="width:20%;background:#1d4e89"></i><i style="width:10%;background:#f07a2a"></i></div>
+            <p>青蓝橘 · Sidonia 膜雨 · Patlabor 2 舰桥</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="thesis">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>辩题</h2>
+          <p>不是三国人物套滤镜，是连环画、港漫、丝网、港片四种印法在撕页处互相感染。</p>
+        </div>
+        <div class="grid ui">
+          <figure class="shot"><img src="thesis/th-01-page-tear-battle.png" alt="小人书街道被撕开"><figcaption><strong>裂页开战</strong><span>贺友直的街，被马荣成的墨撕开</span></figcaption></figure>
+          <figure class="shot"><img src="thesis/th-02-silkscreen-boss.png" alt="丝网工业巨像战斗"><figcaption><strong>丝网巨像</strong><span>魏：刻板工厂当敌人</span></figcaption></figure>
+          <figure class="shot"><img src="thesis/th-03-doyle-harbor.png" alt="港片夜雨港口"><figcaption><strong>港片夜港</strong><span>吴：杜可风的雨洇进连环画</span></figcaption></figure>
+          <figure class="shot"><img src="thesis/th-04-inspect-print-face.png" alt="年画与港墨拼在一张脸上"><figcaption><strong>人物检视</strong><span>半张年画油墨，半张港漫线</span></figcaption></figure>
+          <figure class="shot"><img src="thesis/th-05-pause-print.png" alt="印刷术暂停菜单"><figcaption><strong>暂停</strong><span>标题字三种印法拼成</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+      <div class="wrap">
+        <div class="section-head">
+          <h2>同帧撞车</h2>
+          <p>近景 Claymore 赛璐珞、远景 Nihei 巨构、伤口里漏出小仓宏昌的水粉城。接触带互相污染，不是分屏贴纸。</p>
+        </div>
+        <div class="grid ui">
+          <figure class="shot"><img src="crossover/xo-01-fog-eats-two-cities.png" alt="雾吞两城"><figcaption><strong>雾吞两城</strong><span>Ogura 雾 + Gauna 汽 + 巨构 + 银眼剪影</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-02-oath-cut-megastructure.png" alt="刃切巨构"><figcaption><strong>刃切巨构</strong><span>赛璐珞刃口把排线撑开</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-10-wound-leaks-ogura.png" alt="伤口漏出旧城"><figcaption><strong>管线伤口</strong><span>切口内壁是 1995 水粉旧城</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-03-docking-collision.png" alt="对接撞击"><figcaption><strong>对接撞击</strong><span>种子船膜长满巨构排线</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-05-lance-rib-corridor.png" alt="肋骨走廊"><figcaption><strong>肋骨走廊</strong><span>几何长枪剖开 Safeguard 排线</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-06-oracle-as-dust.png" alt="尘埃读结构"><figcaption><strong>尘埃读结构</strong><span>人是斑点，youki 把墙译成水粉</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-07-membrane-mirror.png" alt="膜面倒影"><figcaption><strong>膜面倒影</strong><span>水翼掠膜，倒影是另一套引擎</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="shots">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>游戏截图</h2>
+          <p>第三视角、中文界面、东亚面孔。像远征队那样：你正在玩，不是在看海报。</p>
+        </div>
+        <div class="grid ui">
+          <figure class="shot"><img src="screenshots/gs-01-shu-battle.png" alt="蜀线战斗截图"><figcaption><strong>战斗</strong><span>攻击 / 技能 / 裂构 · 弱点锁定</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-06-qte-parry.png" alt="格挡QTE截图"><figcaption><strong>格挡瞬间</strong><span>伤口里漏出另一座城</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-03-city-explore.png" alt="城市探索截图"><figcaption><strong>城市冒险</strong><span>目标 找到通联点 · 墙上写着调查</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-02-wei-walk.png" alt="魏线探索截图"><figcaption><strong>巨构巡走</strong><span>驾驶员焊在攻城架里</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-09-wu-skirmish.png" alt="吴线战斗截图"><figcaption><strong>膜上掠行</strong><span>锁定膜核 · 掠潮</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-07-dialogue.png" alt="对话截图"><figcaption><strong>对话</strong><span>问通联 / 保持沉默</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-04-pause-menu.png" alt="暂停菜单截图"><figcaption><strong>暂停</strong><span>继续 编成 都市 选项</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-05-formation.png" alt="编成界面截图"><figcaption><strong>编成</strong><span>誓刃 · 攻城 · 潮尉</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-08-results.png" alt="结算截图"><figcaption><strong>清算</strong><span>伤害 格挡 无伤</span></figcaption></figure>
+          <figure class="shot"><img src="screenshots/gs-10-inspect-oathblade.png" alt="人物检视截图"><figcaption><strong>人物检视</strong><span>银眼种 · 裂构术</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="ui">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>游戏内界面</h2>
+          <p>E33 入画字 + P4R 疏层级。控件物质来自三套作者管线，压到世界的地方必须感染。</p>
+        </div>
+        <div class="grid ui">
+          <figure class="shot"><img src="crossover/xo-04-menu-three-pipelines.png" alt="三管线主菜单"><figcaption><strong>主菜单</strong><span>标题字一半刻线一半赛璐珞一半膜</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-08-combat-hud.png" alt="战斗HUD"><figcaption><strong>战斗 HUD</strong><span>血条是排线计，技能是色块</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-09-city-diegetic.png" alt="城市入画UI"><figcaption><strong>城市冒险</strong><span>字写在墙上：排线变刻，膜上变脂</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="chars">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>操作体</h2>
+          <p>银眼巨剑、尘埃驾驶员、水翼掠膜。去掉特效后仍应像能走进 BLAME! / 大剑 / 攻壳的人，而不是舞台偶像。</p>
+        </div>
+        <h3 style="letter-spacing:.12em;margin:0 0 12px;color:var(--shu-red);font-size:14px;">SHU · YAGI + OGURA CEL</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="crossover/xo-char-scarlet-oathblade.png" alt="Scarlet Oathblade"><figcaption><strong>Scarlet Oathblade</strong><span>银眼巨剑 · 钠灯雨</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-white-lance-ace.png" alt="White Lance Ace"><figcaption><strong>White Lance Ace</strong><span>赛璐珞身体 · 几何枪</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-oracle-architect.png" alt="Oracle Architect"><figcaption><strong>Oracle Architect</strong><span>巨构里的尘埃</span></figcaption></figure>
+        </div>
+        <h3 style="letter-spacing:.12em;margin:32px 0 12px;color:var(--wei-gold);font-size:14px;">WEI · NIHEI MEGASTRUCTURE</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="crossover/xo-char-siege-hammer.png" alt="Siege Hammer"><figcaption><strong>Siege Hammer</strong><span>驾驶员焊进攻城架</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-night-raid-fox.png" alt="Night Raid Fox"><figcaption><strong>Night Raid Fox</strong><span>Safeguard 负空间几何</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-iron-bastion.png" alt="Iron Bastion"><figcaption><strong>Iron Bastion</strong><span>会走的巨构切片</span></figcaption></figure>
+        </div>
+        <h3 style="letter-spacing:.12em;margin:32px 0 12px;color:var(--wu-teal);font-size:14px;">WU · SIDONIA / GAUNA</h3>
+        <div class="grid chars">
+          <figure class="shot"><img src="crossover/xo-char-tide-captain.png" alt="Tide Captain"><figcaption><strong>Tide Captain</strong><span>种子船束具 · 活膜海图</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-hydro-skater.png" alt="Hydro Skater"><figcaption><strong>Hydro Skater</strong><span>几何水翼掠膜</span></figcaption></figure>
+          <figure class="shot"><img src="crossover/xo-char-mist-tactician.png" alt="Mist Tactician"><figcaption><strong>Mist Tactician</strong><span>雾即有机天气</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>生图锁作者管线（Nihei / Yagi / Ogura / Sidonia Gauna）+ Spider-Verse 接触带感染 + E33/P4R 信息层级。角色只用英文代号。</p>
+      <p>
+        <a href="IP设计.md">管线圣经</a> ·
+        <a href="docs/游戏界面-crossover.md">Crossover UI</a> ·
+        <a href="docs/角色阵容-作者语法.md">角色语法</a> ·
+        <a href="docs/魏势力-游戏UI概念.md">魏物质</a> ·
+        <a href="docs/蜀势力-游戏UI概念.md">蜀物质</a> ·
+        <a href="docs/吴势力-游戏UI概念.md">吴物质</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
